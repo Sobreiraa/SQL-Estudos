@@ -1,0 +1,19 @@
+-- COUNT
+
+-- É uma função de agregação usada para contar o número de registros em uma tabela, de acordo com uma determinada condição.
+
+-- Fazendo a contagem de quantas pessoas estão cadastradas
+SELECT COUNT(*)
+FROM person.person;
+
+-- Contagem de quantos titulos tem na tabela
+SELECT COUNT(title)
+FROM person.person;
+
+-- Contagem de quantos produtos estão cadastrados
+SELECT COUNT(*)
+FROM production.product;
+
+-- Contagem de quantos tamanhos de produtos estão cadastrados
+SELECT COUNT(size)
+FROM production.product;

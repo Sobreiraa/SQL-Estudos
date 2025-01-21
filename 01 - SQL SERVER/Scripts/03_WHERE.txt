@@ -1,0 +1,47 @@
+-- WHERE
+
+/*
+É usada para filtrar registros de uma tabela com base em condições específicas
+
+EX: SELECT coluna1, coluna2 FROM tabela WHERE condição
+*/
+
+-- Selecionando todas as pessoas que tenham sobrenome Miller
+SELECT * 
+FROM person.person
+WHERE lastname = 'Miller';
+
+-- Selecionando todas as pessoas que tenham sobrenome Miller e nome Anna
+SELECT * 
+FROM person.person 
+WHERE lastname = 'Miller' AND firstname = 'Anna';
+
+-- Selecionando todos os produtos que tenham a cor Azul ou Preta
+SELECT * 
+FROM production.product 
+WHERE color = 'Blue' OR color = 'Black';
+
+-- Selecionando todos os produtos que custam mais de 1000 dolares
+SELECT * 
+FROM production.product
+WHERE listprice > 1000; 
+
+-- Selecionando todos os produtos que custam entre 1000 dolares e 5000 dolares
+SELECT * 
+FROM production.product
+WHERE listprice > 1000 AND listprice < 5000;
+
+-- Selecionando todos os produtos que não são da cor vermelha
+SELECT * 
+FROM production.product 
+WHERE color <> 'Red';
+
+-- Selecionando o nome de todas as peças que pesam mais de 500kg mas não mais que 700kg
+SELECT name
+FROM production.product 
+WHERE weight > 500 AND weight <= 700;
+
+-- Selecionando todos os empregados que são casados e são asalariados
+SELECT * 
+FROM humanresources.employee
+WHERE maritalstatus = 'M' AND salariedflag = 1;

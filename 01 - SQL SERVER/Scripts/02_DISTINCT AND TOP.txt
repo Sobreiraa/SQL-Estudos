@@ -1,0 +1,21 @@
+-- DISTINCT 
+
+-- Omitir dados duplicados da tabela
+
+-- Selecionando apenas os nomes únicos da tabela
+SELECT DISTINCT firstname, lastname
+FROM person.person;
+
+-- Selecionando apenas os sobrenomes únicos da tabela
+SELECT DISTINCT middlename 
+FROM person.person
+
+-------------------------------------------------------------------------------------------
+
+-- TOP
+
+-- É usado para limitar o número de linhas retornadas por uma consulta.
+
+-- Selecionando apenas 100 linhas retornadas da tabela
+SELECT TOP 100 *
+FROM person.person;

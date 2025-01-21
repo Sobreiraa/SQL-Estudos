@@ -1,0 +1,23 @@
+-- SELECT
+
+/*
+Em SQL, o comando SELECT é usado para consultar dados em tabelas de um banco de dados. 
+
+Ele permite recuperar informações específicas de uma ou mais tabelas, com a possibilidade de aplicar filtros, ordenar resultados e realizar cálculos.
+
+O comando SELECT é um dos mais fundamentais em SQL, sendo usado para extrair dados sem alterá-los.
+*/
+
+-- Selecionando todas as colunas da tabela
+SELECT * 
+FROM person.person;
+
+-- Selecionando apenas uma coluna da tabela
+SELECT title 
+FROM person.person;
+
+-- Selecionando nomes e sobrenomes
+SELECT FirstName, LastName
+FROM person.person;
+
+
