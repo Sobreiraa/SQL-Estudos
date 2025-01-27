@@ -1,0 +1,29 @@
+-- ORDER BY
+
+-- É usada para ordenar os registros retornados por uma consulta, com base em uma ou mais colunas.
+
+/*
+
+EX:
+
+SELECT coluna1, coluna2
+FROM tabela
+ORDER BY asc, desc
+
+*/
+
+-- Selecionando todos as colunas da tabela mas ordenando por nome
+SELECT * 
+FROM person.person
+ORDER BY firstname ASC;
+
+-- Obtendo o ProductId dos 10 produtos mais caraos cadastrados no sistema, listando do mais caro para o mais barato
+SELECT TOP 10 productid, name, listprice 
+FROM production.product 
+ORDER BY listprice DESC
+
+-- Obtendo o nome e o número do produto dos produtos que tem o ProductID entre 1~4
+SELECT name, productnumber, productid
+FROM production.product 
+WHERE productid < 5
+ORDER BY productid ASC

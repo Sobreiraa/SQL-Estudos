@@ -1,0 +1,68 @@
+-- Operador BETWEEN
+
+-- É usado para filtrar registros que estão dentro de um intervalo de valores, incluindo os limites inferior e superior.
+
+/* 
+
+EX:
+
+valor BETWEEN minimo AND maximo;
+
+*/
+
+-- Selecionando todos os produtos que estão com o preço entre 1000 e 1500
+SELECT *
+FROM production.product
+WHERE listprice BETWEEN 1000 AND 1500;
+
+-- Selecionando todos os produtos que NÃO estão com o preço entre 1000 e 1500
+SELECT *
+FROM production.product
+WHERE listprice NOT BETWEEN 1000 AND 1500;
+
+-- Selecionando todos os empregados cadastrados no período entre 2009/01/01 e 2010/01/01
+SELECT * 
+FROM humanresources.employee 
+WHERE hiredate BETWEEN '2009/01/01' AND '2010/01/01'
+ORDER BY hiredate;
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- Operador IN
+
+-- É usado junto com o WHERE, para verificar se um valor corresponde com qualquer valor passado na lista de valores
+
+-- Selecionando pessoa cujo o id seja 2, 7 e 13. (Utilizando o IN)
+SELECT *
+FROM person.person 
+WHERE businessentityid IN (2, 7, 13);
+
+--Selecionando pessoa cujo o id seja 2, 7 e 13. (Sem o IN)
+SELECT *
+FROM person.person
+WHERE businessentityid = 2 OR businessentityid = 7 OR businessentityid = 13;
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- Operador LIKE
+
+-- É usado em consultas para realizar buscas baseadas em padrões em colunas de texto
+
+-- Selecionando uma pessoa cujo o nome começa com "ovi"
+SELECT * 
+FROM person.person
+WHERE firstname LIKE 'ovi%';
+
+-- Seceionando uma pessoa cujo o final do nome começa com 'to'
+SELECT * 
+FROM person.person
+WHERE firstname LIKE '%to';
+
+-- Selecionando uma pessoa cujo tenha 'essa' entre o nome
+SELECT * 
+FROM person.person
+WHERE firstname LIKE '%essa%';
