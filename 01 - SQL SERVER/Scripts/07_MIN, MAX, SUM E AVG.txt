@@ -1,0 +1,21 @@
+-- Funções de Agregações
+
+-- MIN, MAX, SUM e AVG
+
+-- São usadas para executar cálculos em um conjunto de valores e retornar um único resultado.
+
+-- Selecionando o preço total dos 10 produtos listados
+SELECT TOP 10 SUM(linetotal) AS 'Soma'
+FROM Sales.SalesOrderDetail;
+
+-- Selecionando o menor valor dos 10 produtos listados
+SELECT TOP 10 MIN(linetotal) AS 'Menor'
+FROM Sales.SalesOrderDetail;
+
+-- Selecionando o maior valor dos 10 produtos listados
+SELECT TOP 10 MAX(linetotal) AS 'Maior'
+FROM Sales.SalesOrderDetail;
+
+-- Selecionando a média dos 10 produtos listados
+SELECT TOP 10 AVG(linetotal) AS 'Média'
+FROM Sales.SalesOrderDetail;

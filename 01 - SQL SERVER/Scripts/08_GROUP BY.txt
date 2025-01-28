@@ -1,0 +1,36 @@
+-- GROUP BY
+
+-- É usado para agrupar linhas que têm valores iguais em colunas específicas, permitindo que você aplique funções de agregação a cada grupo separadamente.
+
+/*
+
+EX:
+
+SELECT coluna1, funcaoagregacao(coluna2)
+FROM tabela
+GROUP BY coluna1;
+
+*/
+
+-- Agrupando informações
+SELECT specialofferid, SUM(unitprice) AS 'Soma'
+FROM Sales.SalesOrderDetail
+GROUP BY Specialofferid;
+
+-- Quando cada produto foi vendido até hoje
+SELECT productid, COUNT(productid) AS 'Contagem'
+FROM Sales.SalesOrderDetail
+GROUP BY ProductID
+ORDER BY ProductID ASC;
+
+-- Quantos nomes de cada nome tem cadastrado no banco de dados?
+SELECT firstname, COUNT(firstname) AS 'Contagem'
+FROM person.person
+GROUP BY firstname
+ORDER BY FirstName ASC;
+
+-- Média de preço dos produtos que são pratas
+SELECT color, AVG(listprice) AS 'Preço'
+FROM production.product
+WHERE Color = 'Silver'
+GROUP BY color;

@@ -29,3 +29,31 @@ AND listprice BETWEEN 500 AND 1000;
 SELECT COUNT(*)
 FROM Production.product
 WHERE name LIKE '%road%';
+
+-- Quantas pessoas tem o mesmo middleName, agrupadas por middlename
+SELECT middlename, COUNT(firstname) AS 'Contador'
+FROM Person.person
+GROUP BY MiddleName;
+
+-- Média de quantidade de cada produto vendido
+SELECT productid, AVG(orderqty) AS 'Média'
+FROM Sales.SalesOrderDetail
+GROUP BY productid;
+
+-- Quais as 10 vendas que no total tiveram os maiores valores de venda por produto do maior valor para o menor
+SELECT TOP 10 ProductID, SUM(linetotal)
+FROM Sales.SalesOrderDetail
+GROUP BY productid
+ORDER BY SUM(linetotal) DESC;
+
+-- Identificando as provincias com o maior número de cadastros, onde seja registrada mais que 1000 vezes no db
+SELECT StateProvinceID, COUNT(StateProvinceID) AS 'Quantidade'
+FROM Person.Address
+GROUP BY StateProvinceID
+HAVING COUNT(StateProvinceID) > 1000;
+
+-- Quais produtos não estão trazendo em média no mínio 1 milhão em total de vendas
+SELECT productid, AVG(linetotal) AS 'Média'
+FROM Sales.SalesOrderDetail
+GROUP BY productid
+HAVING AVG(linetotal) < 1000000;

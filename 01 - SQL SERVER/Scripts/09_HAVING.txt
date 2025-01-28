@@ -1,0 +1,33 @@
+-- HAVING
+
+-- É usado para filtrar os resultados de um conjunto de dados agrupados, ou seja, funciona em conjunto com a cláusula GROUP BY. 
+
+/*
+
+EX:
+
+SELECT coluna1, funcaoagregacao(coluna2)
+FROM nometabela
+GROUP BY coluna1
+HAVING condicao;
+
+*/
+
+-- Selecionando todos os nomes no db que tem uma ocorrencia maior que 10 vezes
+SELECT firstname, COUNT(firstname) AS 'Quantidade'
+FROM Person.Person
+GROUP BY firstname
+HAVING COUNT(firstname) > 10;
+
+-- Selecionando todos os nomes no db que tem uma ocorrencia maior que 10 vezes, porém, somente onde o título é 'Mr'
+SELECT firstname, COUNT(firstname) AS 'Quantidade'
+FROM Person.Person
+WHERE Title = 'Mr.'
+GROUP BY firstname
+HAVING COUNT(firstname) > 10;
+
+-- Produtos que no total de vendas estão entre 162k e 500k
+SELECT productid, SUM(linetotal) AS 'Total'
+FROM Sales.SalesOrderDetail
+GROUP BY ProductID
+HAVING SUM(linetotal) BETWEEN 162000 AND 500000;
