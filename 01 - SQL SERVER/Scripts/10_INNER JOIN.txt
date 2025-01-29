@@ -1,0 +1,24 @@
+-- INNER JOIN
+
+-- É um tipo de junção no SQL que retorna apenas as linhas que possuem correspondência entre as tabelas envolvidas. 
+
+-- BusinessEntityID, FirstName, LastName, EmaillAddress
+SELECT p.businessentityID, p.firstname, p.lastname, pe.emailaddress
+FROM Person.Person AS p
+INNER JOIN Person.EmailAddress pe ON p.BusinessEntityID = pe.BusinessEntityID;
+
+-- Nome dos produtos e as informações de suas subcategorias (Preço, Nome do Produto e Nome da Subcategoria)
+SELECT p.listprice, p.name AS 'Nome do Produto', ps.Name AS 'Nome da Subcategoria'
+FROM Production.Product AS p
+INNER JOIN Production.ProductSubcategory ps ON p.ProductSubcategoryID = ps.ProductSubcategoryID;
+
+-- Juntando duas tabelas com todas as colunas
+SELECT * 
+FROM person.BusinessEntityAddress ba
+INNER JOIN Person.Address pa ON pa.AddressID = ba.AddressID
+ORDER BY pa.AddressID;
+
+-- BusinessEntityId, Name, PhoneNumberTypeId, PhoneNumber
+SELECT p.businessentityId, pt.name, pt.phonenumbertypeid,  p.phonenumber
+FROM Person.PersonPhone AS p
+INNER JOIN Person.PhoneNumberType AS pt ON p.PhoneNumberTypeID = pt.PhoneNumberTypeID;
