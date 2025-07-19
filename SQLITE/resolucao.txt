@@ -1,0 +1,154 @@
+-- 1. Liste os nomes de todos os clientes.
+SELECT nome FROM clientes;
+
+-- 2. Exiba o nome e o e-mail dos 10 primeiros vendedores cadastrados.
+SELECT nome, email FROM vendedores LIMIT 10;
+
+-- 3. Mostre os 5 produtos mais baratos.
+SELECT p.nome, p.preco
+FROM produtos AS p
+ORDER BY p.preco ASC
+LIMIT 5;
+
+-- 4. Liste todos os produtos da categoria "Eletrônicos".
+SELECT p.nome, p.preco, p.estoque, c.nome
+FROM produtos AS p
+INNER JOIN categorias AS c
+ON p.categoria_id = c.id
+WHERE c.nome = 'Eletrônicos';
+
+-- 5. Mostre os pedidos com status "PENDENTE".
+SELECT * FROM pedidos 
+WHERE status = 'PENDENTE';
+
+-- 6. Encontre todos os clientes com número de telefone iniciando com “(021)”.
+SELECT * FROM clientes
+WHERE telefone LIKE '(021)%';
+
+-- 7. Exiba os nomes e preços dos produtos cujo estoque seja maior que 100.
+SELECT nome, preco, estoque FROM produtos
+WHERE estoque > 100;
+
+-- 8. Liste todos os pagamentos feitos via Pix.
+SELECT * FROM pagamentos 
+WHERE forma_pagamento = 'Pix';
+
+-- 9. Encontre todos os pedidos realizados em 2025.
+SELECT * FROM pedidos
+WHERE data LIKE '2025%';
+
+-- 10. Mostre os produtos cujo nome contenha "Pro".
+SELECT * FROM produtos
+WHERE nome LIKE '%Pro%';
+
+-- 11. Liste o nome do cliente e a cidade de cada um.
+SELECT c.nome, e.cidade 
+FROM clientes AS c 
+INNER JOIN enderecos AS e
+ON c.id = e.cliente_id;
+
+-- 12. Mostre o nome do produto e o nome da categoria a que ele pertence.
+SELECT p.nome, c.nome
+FROM produtos AS p
+INNER JOIN categorias AS c
+ON p.categoria_id = c.id;
+
+-- 13. Exiba os nomes dos vendedores que realizaram pedidos.
+SELECT v.nome, p.data, p.status 
+FROM vendedores AS v
+INNER JOIN pedidos AS p
+ON v.id = p.vendedor_id;
+
+-- 14. Liste os nomes dos clientes e o valor total pago por cada um.
+SELECT c.nome, SUM(pag.valor_pago) AS total_pago
+FROM clientes AS c
+INNER JOIN pedidos AS ped ON c.id = ped.cliente_id
+INNER JOIN pagamentos AS pag ON ped.id = pag.pedido_id
+GROUP BY c.nome;
+
+-- 15. Calcule o total de vendas (valor_pago) por forma de pagamento.
+SELECT pag.forma_pagamento, SUM(pag.valor_pago) AS valor_pago_por_forma_de_pagamento 
+FROM pagamentos AS pag
+GROUP BY pag.forma_pagamento;
+
+-- 16. Mostre o número total de produtos por categoria.
+SELECT cat.nome, COUNT(prod.id) AS numero_total_de_produtos_por_categoria
+FROM categorias AS cat
+INNER JOIN produtos AS prod 
+ON prod.categoria_id = cat.id
+GROUP BY cat.nome;
+
+-- 17. Liste os nomes dos clientes que fizeram mais de 3 pedidos.
+SELECT cli.nome, COUNT(ped.id) AS qtd_pedidos_por_cliente 
+FROM clientes AS cli
+INNER JOIN pedidos AS ped
+ON cli.id = ped.cliente_id
+GROUP BY cli.nome
+HAVING COUNT(ped.id) > 3;
+
+-- 18. Calcule o valor médio dos pedidos pagos.
+SELECT ped.status, ROUND(AVG(pag.valor_pago), 2) AS media_pedidos_pagos
+FROM pedidos AS ped
+INNER JOIN pagamentos AS pag
+ON ped.id = pag.pedido_id 
+WHERE ped.status = 'PAGO'
+GROUP BY ped.status;
+
+-- 19. Mostre os pedidos e o número de itens em cada pedido.
+SELECT ped.id AS pedido_id, COUNT(itens.id) AS numero_de_itens
+FROM pedidos AS ped
+INNER JOIN itens_pedido AS itens
+ON ped.id = itens.pedido_id
+GROUP BY ped.id;
+
+-- 20. Liste o total em vendas (valor pago) por mês e ano.
+SELECT STRFTIME('%Y-%m', pag.data_pagamento) AS mes_ano, SUM(pag.valor_pago) AS valor_pago
+FROM pagamentos AS pag
+GROUP BY mes_ano
+ORDER BY mes_ano;
+
+-- 21. Liste os pedidos (ID, data, status) junto com o nome do cliente e do vendedor.
+SELECT ped.id, ped.data, ped.status, cli.nome AS nome_cliente, vend.nome AS nome_vendedor
+FROM pedidos AS ped
+INNER JOIN clientes AS cli 
+ON ped.cliente_id = cli.id
+INNER JOIN vendedores AS vend 
+ON ped.vendedor_id = vend.id;
+
+-- 22. Mostre os nomes dos clientes que compraram produtos da categoria "Livros".
+SELECT DISTINCT cli.nome
+FROM clientes AS cli
+INNER JOIN pedidos AS ped 
+ON cli.id = ped.cliente_id
+INNER JOIN itens_pedido AS ip 
+ON ped.id = ip.pedido_id
+INNER JOIN produtos AS prod 
+ON ip.produto_id = prod.id
+INNER JOIN categorias AS cat 
+ON prod.categoria_id = cat.id
+WHERE cat.nome = 'Livros';
+
+-- 23. Liste os produtos que nunca foram vendidos.
+SELECT prod.nome AS produtos_nunca_vendido
+FROM produtos AS prod
+LEFT JOIN itens_pedido AS itens 
+ON prod.id = itens.produto_id
+WHERE itens.id IS NULL;
+
+-- 24. Encontre o cliente que mais gastou no total.
+SELECT cli.nome, SUM(pag.valor_pago) AS total_gasto
+FROM clientes AS cli
+INNER JOIN pedidos AS ped ON cli.id = ped.cliente_id 
+INNER JOIN pagamentos AS pag ON pag.pedido_id = ped.id
+GROUP BY cli.nome
+ORDER BY total_gasto DESC
+LIMIT 1;
+
+-- 25. Mostre o produto mais vendido (em quantidade total).
+SELECT prod.nome, SUM(itens.quantidade) AS produto_mais_vendido
+FROM produtos AS prod
+INNER JOIN itens_pedido AS itens 
+ON prod.id = itens.produto_id
+GROUP BY prod.nome
+ORDER BY produto_mais_vendido DESC
+LIMIT 1;
